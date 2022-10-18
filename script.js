@@ -1,79 +1,56 @@
-const quoteContainer = document.getElementById('quote-container');
-const quoteText = document.getElementById('quote');
-const authorText = document.getElementById('author');
-const twitterBtn = document.getElementById('twitter');
-const newQuoteBtn = document.getElementById('new-quote');
-const loader = document.getElementById('loader')
+const menuBars = document.getElementById('menu-bars');
+const overlay = document.getElementById('overlay');
+const nav1 = document.getElementById('nav-1');
+const nav2 = document.getElementById('nav-2');
+const nav3 = document.getElementById('nav-3');
+const nav4 = document.getElementById('nav-4');
+const nav5 = document.getElementById('nav-5');
 
-let apiQuotes = [];
-
-// Show Loading
-function loading() {
-   loader.hidden = false;
-   quoteContainer.hidden = true;
-}
-
-// Hide Loading
-function complete() {
-    quoteContainer.hidden = false;
-    loader.hidden = true;
-}
-
-// Show New Quote
-function newQuote() {
-    loading();
-    // Pick a random quote from apiQuates array
-    const quote = apiQuotes [Math.floor(Math.random() * apiQuotes.length)];
-    // Check if Author field is blank and replace it with 'Unknown'
-    if (!quote.author) {
-        authorText.textContent ='Unknown';
-    }
-    else {
-        authorText.textContent = quote.author;
-    }
-
-// Check quote lenght to determine styling
-if (quote.text.lenght > 120) {
-quoteText.classList.add('long-quote');
+function toggleNav() {
+// Toggle:Menu Bars Open/Closed
+menuBars.classList.toggle('change');
+// Toggle: Menu Active
+overlay.classList.toggle('overlay-active');
+if(overlay.classList.contains('overlay-active')) {
+   // Animate In - Overlay
+   overlay.classList.remove('overlay-slide-left');
+   overlay.classList.add('overlay-slide-right');
+   // Animate In - Nav Items
+   nav1.classList.remove('slide-out-1');
+   nav1.classList.add('slide-in-1'); 
+   nav2.classList.remove('slide-out-2');
+   nav2.classList.add('slide-in-2');
+   nav3.classList.remove('slide-out-3');
+   nav3.classList.add('slide-in-3');
+   nav4.classList.remove('slide-out-4');
+   nav4.classList.add('slide-in-4');
+   nav5.classList.remove('slide-out-5');
+   nav5.classList.add('slide-in-5');
 } else {
-  quoteText.classList.remove('long-quote');  
+    // Animate Out-Overlay
+    overlay.classList.remove('overlay-slide-right');
+    overlay.classList.add('overlay-slide-left');
+    // Animate Out - Nav Items
+   nav1.classList.remove('slide-in-1');
+   nav1.classList.add('slide-out-1'); 
+   nav2.classList.remove('slide-in-2');
+   nav2.classList.add('slide-out-2');
+   nav3.classList.remove('slide-in-3');
+   nav3.classList.add('slide-out-3');
+   nav4.classList.remove('slide-in-4');
+   nav4.classList.add('slide-out-4');
+   nav5.classList.remove('slide-in-5');
+   nav5.classList.add('slide-out-5');
 }
-    // Set Quote, Hide Loader
-    quoteText.textContent = quote.text;
-    complete();
 }
 
 
-// Get Quotes From API
-async function getQuotes() {
-    loading();
-    const apiUrl = 'https://type.fit/api/quotes'
-    try {
-        const response = await fetch(apiUrl);
-        apiQuotes = await response.json()
-        newQuote()
-    } catch (error) {
-        // Catch Error Here
-    }
-}
-// Tweet Quote
-function tweetQuote() {
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${authorText.textContent}`
-    window.open(twitterUrl, '_blank');
-}
+
+
 // Event Listeners
-newQuoteBtn.addEventListener( 'click', newQuote);
-twitterBtn.addEventListener( 'click', tweetQuote);
-
-
-// On Load
-getQuotes();
-
-git remote add origin https://github.com/csababerekmeri/Project-21.git
-git branch -M `main`
-git push -u origin `main`
-
-
-git remote add origin https://github.com/csababerekmeri/Project-21.git
-git branch -M `main`
-git push -u origin `main
+menuBars.addEventListener('click', toggleNav);
+nav1.addEventListener('click', toggleNav);
+nav2.addEventListener('click', toggleNav);
+nav3.addEventListener('click', toggleNav);
+nav4.addEventListener('click', toggleNav);
+nav5.addEventListener('click', toggleNav);
